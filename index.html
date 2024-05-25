@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Management Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- main body -start  -->
+    <div class="container">
+
+        <!-- nav headder -start  -->
+        <header class="header">
+            <div class="logo">
+                <img src="img/TestLogo.svg" alt="Tech.Care">
+            </div>
+            <nav class="navigation">
+                <a href="#"><i class="ri-home-5-fill"></i> Overview</a>
+                <a href="#"><i class="ri-group-fill"></i> Patients</a>
+                <a href="#"><i class="ri-calendar-2-fill"></i> Schedule</a>
+                <a href="#"><i class="ri-chat-4-fill"></i> Message</a>
+                <a href="#"><i class="ri-bank-card-2-fill"></i> Transactions</a>
+            </nav>
+            <div class="profile">
+                <img src="img/doctorimg.png" alt="Dr. Jose Simmons">
+                <span><strong>Jose Simmons</strong> <br><span style="font-size: 12px;"> General
+                        Practitioner</span></span>
+
+            </div>
+
+            <div class="menu-toggle" id="menu-toggle">
+                <strong><i class="ri-menu-unfold-line"></i></strong>
+            </div>
+        </header>
+        <!-- nav header -end  -->
+
+
+        <main class="main">
+
+            <!-- left sidebar -start  -->
+            <aside class="sidebar">
+                <div class="patients-list">
+                    <input type="text" placeholder="Search">
+
+                    <!-- all users -start  -->
+                    <ul id="allusers"></ul>
+                    <!-- all users -end  -->
+
+                </div>
+            </aside>
+            <!-- left sidebar -end  -->
+
+            <section class="content">
+
+                <!-- diagnosis-history chart -start   -->
+                <div class="diagnosis-history">
+                    <h2>Diagnosis History</h2>
+                    <div class="chart-container">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <!-- diagnosis-history chart -end  -->
+
+                    <!-- diagnosis-history-meter -start  -->
+                    <div class="vitals" id="diagnosis_history_meter"></div>
+                    <!-- diagnosis-history-meter -end  -->
+
+                </div>
+
+                <!-- diagnostic-list -start  -->
+                <div class="diagnostic-list">
+                    <h2>Diagnostic List</h2>
+                    <table>
+                        <thead style="background-color:whitesmoke ;">
+                            <tr>
+                                <th>Problem/Diagnosis</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <!-- diagnostic-list-data -start  -->
+                        <tbody id="diagnostic_list"></tbody>
+                        <!-- diagnostic-list-data -end  -->
+                    </table>
+                </div>
+                <!-- diagnostic-list -end  -->
+
+            </section>
+
+            <!-- right sidebar -start  -->
+            <aside class="patient-details">
+                <!-- profile info -start  -->
+                <div class="profile-card" id="userdata"></div>
+                <!-- profile info -end  -->
+            </aside>
+            <!-- right sidebar -end  -->
+
+        </main>
+    </div>
+    <!-- main body -end  -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/scripts.js"></script>
+
+</body>
+</body>
+
+</html>

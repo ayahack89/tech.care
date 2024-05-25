@@ -1,0 +1,367 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+     font-family: "Poppins", sans-serif;
+     background-color: #f4f4f4;
+ }
+
+ 
+ .container {
+     display: grid;
+     grid-template-rows: auto 1fr;
+     grid-template-columns: 1fr;
+     height: 100vh;
+ }
+ 
+ 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo img {
+    width: 120px;
+}
+
+.navigation {
+    display: flex;
+    gap: 20px;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.profile span {
+    display: block;
+    text-align: right;
+}
+
+
+ 
+ .profile {
+     display: flex;
+     align-items: center;
+ }
+ 
+ .profile img {
+     height: 40px;
+     border-radius: 50%;
+     margin-right: 10px;
+ }
+ 
+ .main {
+     display: grid;
+     grid-template-columns: 250px 1fr 300px;
+     grid-gap: 20px;
+     padding: 20px;
+ }
+ 
+ .sidebar {
+     background-color: #fff;
+     padding: 20px;
+     border-right: 1px solid #ccc;
+ }
+ 
+ .patients-list input {
+     width: 90%;
+     padding: 10px;
+     margin-bottom: 20px;
+     border: 1px solid #ccc;
+     border-radius: 20px;
+ }
+ 
+ .patients-list ul {
+     list-style: none;
+     padding: 0;
+ }
+ 
+ .patients-list li {
+     padding: 10px;
+     border-bottom: 1px solid #ccc;
+     cursor: pointer;
+ }
+ 
+ .patients-list .active {
+     background-color: #e6f7ff;
+ }
+
+ .allusers {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.allusers:hover {
+    background-color: #f0f0f0;
+}
+
+.allusers img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.allusers div {
+    flex-grow: 1;
+    font-size: 16px;
+    color: #333;
+}
+
+
+
+ 
+ .content {
+     background-color: #fff;
+     padding: 20px;
+     border-radius: 5px;
+ }
+ 
+ .diagnosis-history {
+     margin-bottom: 20px;
+ }
+ 
+ .diagnosis-history h2,
+ .diagnostic-list h2,
+ .lab-results h2 {
+     margin-top: 0;
+ }
+ .chart-container {
+    position: relative;
+    width: 80%;
+    height: 60vh;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+ .vitals {
+     display: flex;
+     justify-content: space-between;
+ }
+ 
+ .vitals div {
+     width: 30%;
+     text-align: center;
+     padding: 10px;
+     background-color: #f9f9f9;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+ }
+ 
+ .diagnostic-list table {
+     width: 100%;
+     border-collapse: collapse;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .diagnostic-list th,
+ .diagnostic-list td {
+     padding: 10px;
+     text-align: left;
+     border-bottom: 1px solid #ccc;
+ }
+ 
+ .patient-details {
+     background-color: #fff;
+     padding: 20px;
+     border-left: 1px solid #ccc;
+ }
+ 
+ .profile-card {
+     
+     margin-bottom: 20px;
+ }
+ .profile-card ul li{
+    list-style-type:none;
+    padding: 10px;
+ }
+ 
+ .profile-card img {
+     width: 100px;
+     border-radius: 50%;
+ }
+ 
+ .profile-card button {
+     padding: 10px 20px;
+     background-color: aqua;
+     font-family: "Poppins", sans-serif;
+     color: black;
+     border: none;
+     font-weight: bolder;
+     width: 100%;
+     border-radius: 50px;
+     cursor: pointer;
+ }
+ 
+ .profile-card button:hover {
+     background-color: rgba(73, 251, 251, 0.853);
+ }
+ 
+ .lab-results ul {
+     list-style: none;
+     padding: 15px;
+     border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; 
+    background-color: rgb(249, 248, 248);
+     
+ }
+ 
+ .lab-results ul li {
+     padding: 10px;
+     border-bottom: 1px solid #ccc;
+     list-style-type: none;
+ }
+
+ /*Mobile responsiveness*/
+ 
+ @media (max-width: 1024px) {
+     .main {
+         grid-template-columns: 1fr;
+         grid-template-rows: auto auto auto;
+     }
+ 
+     .sidebar {
+         border-right: none;
+         border-bottom: 1px solid #ccc;
+     }
+ 
+     .patient-details {
+         border-left: none;
+         border-top: 1px solid #ccc;
+     }
+ 
+     .vitals {
+         flex-direction: column;
+     }
+ 
+     .vitals div {
+         width: 100%;
+         margin-bottom: 10px;
+     }
+ }
+ 
+ @media (max-width: 768px) {
+     .header {
+         flex-direction: column;
+         align-items: flex-start;
+     }
+ 
+     .profile {
+         margin-top: 10px;
+     }
+ 
+     .navigation {
+         display: flex;
+         flex-direction: column;
+     }
+ 
+     .navigation a {
+         margin: 5px 0;
+     }
+ 
+     .vitals {
+         flex-direction: column;
+     }
+ 
+     .vitals div {
+         width: 100%;
+         margin-bottom: 10px;
+     }
+ }
+ 
+ @media (max-width: 480px) {
+     .navigation a {
+         font-size: 14px;
+     }
+ 
+     .profile img {
+         height: 30px;
+     }
+ 
+     .vitals div {
+         font-size: 14px;
+     }
+ 
+     .diagnostic-list th,
+     .diagnostic-list td {
+         font-size: 14px;
+     }
+ }
+ @media (max-width: 600px) {
+    .allusers {
+        padding: 8px;
+    }
+    
+    .allusers img {
+        width: 25px;
+        margin-right: 8px;
+    }
+    
+    .allusers div {
+        font-size: 14px;
+    }
+}
+@media (max-width: 768px) {
+    .navigation {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .navigation.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    .menu-toggle div {
+        width: 10px;
+        border-radius: 50px;
+        height: 3px;
+        background-color: black;
+        margin: 5px 0;
+    }
+}
