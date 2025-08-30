@@ -1,215 +1,345 @@
-/*script.js*/
-let username = 'coalition';
-let password = 'skills-test';
-let auth = btoa(`${username}:${password}`);
+/*
+ * Tech.Care Patient Dashboard Script
+ * Final Version: 2.3.1
+ * Description: Changed default patient to Emily Williams.
+ */
+document.addEventListener('DOMContentLoaded', () => {
 
-async function callApi() {
-    try {
-        let response = await fetch('https://fedskillstest.coalitiontechnologies.workers.dev/', {
-            headers: {
-                'Authorization': `Basic ${auth}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        let data = await response.json();
-        console.log(data);
-
-        let alluserdata = data.map(user => `
-        <div class="allusers">
-        <img src="${user.profile_picture}" alt"${user.name}" width="30px"/>
-        <div><strong>${user.name}</strong> <br> <span style="font-size:12px;">${user.gender}, ${user.age}</span></div>
-        </div>
-            `).join('');
-        document.getElementById('allusers').innerHTML = alluserdata;
-
-        let jessicaData = data.filter(user => user.name === 'Jessica Taylor');
-
-        if (jessicaData.length > 0) {
-            let jessica = jessicaData[0];
-
-            let userdataHtml = `
-        <div>
-        <center>
-            <img src="${jessica.profile_picture}" alt="Jessica Taylor">
-            <h2>${jessica.name}</h2>
-            </center>
-            <ul>
-            <li><i class="ri-calendar-line"></i>  <strong>Date of Birth</strong> <br> <span style="margin-left:22px;">${jessica.date_of_birth}</span></li>
-            <li><i class="ri-women-line"></i> <strong>Gender</strong> <br> <span style="margin-left:22px;">${jessica.gender}</span></li>
-            <li><i class="ri-phone-line"></i> <strong>Contact Info</strong> <br> <span style="margin-left:22px;">${jessica.phone_number}</span></li>
-            <li><i class="ri-phone-line"></i> <strong>Emergency Contacts</strong> <br> <span style="margin-left:22px;">${jessica.emergency_contact}<span></li>
-            <li><i class="ri-shield-check-line"></i> <strong>Insurance Provider</strong> <br> <span style="margin-left:22px;">${jessica.incurance_type}</span></li>
-            </ul>
-            <button>Show All Information</button>
-            </div>
-            <div class="lab-results" id="lab_results">
-                <br>
-                
-            <ul>
-            <h2>Lab Results</h2>
-                    ${jessica.lab_results.map(result => `<li>${result}    <i class="ri-download-2-line"></i></li> `).join('')} 
-            </ul>
-
-        </div>  
-      
-    `;
-            let diagnosticListHtml = jessica.diagnostic_list.map(diagnostic => `
-        <tr>
-            <td>${diagnostic.name}</td>
-            <td>${diagnostic.description}</td>
-            <td>${diagnostic.status}</td>
-        </tr>
-    `).join('');
-
-            document.getElementById("userdata").innerHTML = userdataHtml;
-            document.getElementById("diagnostic_list").innerHTML = diagnosticListHtml;
-        } else {
-            document.getElementById("userdata").innerHTML = '<p>No data found for Jessica Taylor</p>';
-        }
-    } catch (error) {
-        console.warn(error);
-    }
-}
-
-
-function toggleDiagnosticList() {
-    let diagnosticTable = document.getElementById("diagnosticTable");
-    let labResults = document.getElementById("labResults");
-    if (diagnosticTable.style.display === "none") {
-        diagnosticTable.style.display = "table";
-        labResults.style.display = "block";
-    } else {
-        diagnosticTable.style.display = "none";
-        labResults.style.display = "none";
-    }
-}
-
-
-callApi();
-
-
-var xmlhttp = new XMLHttpRequest();
-var url = 'https://fedskillstest.coalitiontechnologies.workers.dev/';
-let user = 'coalition';
-let pass = 'skills-test';
-let autho = btoa(`${user}:${pass}`);
-
-xmlhttp.open("GET", url, true);
-xmlhttp.setRequestHeader('Authorization', `Basic ${autho}`);
-xmlhttp.send();
-
-xmlhttp.onreadystatechange = function() {
-if (this.readyState == 4 && this.status == 200) {
-var data = JSON.parse(this.responseText);
-console.log(data);
-
-var filteredUser = data.filter(mainuser => mainuser.name === 'Jessica Taylor')[0];
-if (filteredUser) {
-    console.log(filteredUser);
-
-    var diagnosisHistory = filteredUser.diagnosis_history;
-    console.log(diagnosisHistory);
-
-    var firstEntry = diagnosisHistory[0];
-    console.log(firstEntry);
-
-
-    let diagnosis_history_meter = `
-        <div style="background-color:#fca5a5;">
-        <i class="ri-heart-pulse-line" style="font-size:3rem; color:red;"></i>
-            <h3>Heart Rate   </h3>
-            <h1>${firstEntry.heart_rate.value} bpm</h1>
-            <p>${firstEntry.heart_rate.levels}</p>
-        </div>
-        <div style="background-color:#bae6fd;">
-        <i class="ri-lungs-line" style="font-size:3rem; color:skyblue;"></i>
-            <h3>Respiratory Rate </h3>
-            <h1>${firstEntry.respiratory_rate.value} bpm</h1>
-            <p> ${firstEntry.respiratory_rate.levels}</p>
-        </div>
-        <div style="background-color: #fde68a">
-        <i class="ri-temp-hot-line" style="font-size:3rem; color:orange;"></i>
-            <h3>Temperature</h3>
-            <h1>${firstEntry.temperature.value} °F</h1>
-            <p>${firstEntry.temperature.levels}</p>
-        </div>
-    `;
-
-    document.getElementById("diagnosis_history_meter").innerHTML = diagnosis_history_meter;
-
-    // Create the chart with the extracted blood pressure data
-    const ctx = document.getElementById('myChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: diagnosisHistory.map(entry => `${entry.month} ${entry.year}`),
-            datasets: [
-                {
-                    label: 'Systolic Blood Pressure',
-                    data: diagnosisHistory.map(entry => entry.blood_pressure.systolic.value),
-                    backgroundColor: 'transparent',
-                    borderColor: 'red',
-                    borderWidth: 2,
-                    tension: 0.4 
-                },
-                {
-                    label: 'Diastolic Blood Pressure',
-                    data: diagnosisHistory.map(entry => entry.blood_pressure.diastolic.value),
-                    backgroundColor: 'transparent',
-                    borderColor: 'blue',
-                    borderWidth: 2,
-                    tension: 0.4 
-                }
-            ]
+    const app = {
+        // Cache frequently accessed DOM elements for performance
+        dom: {
+            themeToggle: document.getElementById('themeToggle'),
+            userList: document.getElementById('allusers'),
+            profileContainer: document.getElementById('userdata'),
+            diagnosticList: document.getElementById('diagnostic_list'),
+            vitalsContainer: document.getElementById('diagnosis_history_meter'),
+            chartCanvas: document.getElementById('myChart'),
+            // Filters and Controls
+            searchInput: document.getElementById('searchInput'),
+            filterGender: document.getElementById('filterGender'),
+            minAge: document.getElementById('minAge'),
+            maxAge: document.getElementById('maxAge'),
+            lastVisitAfter: document.getElementById('lastVisitAfter'),
+            clearFiltersBtn: document.getElementById('clearFilters'),
+            rangeFrom: document.getElementById('rangeFrom'),
+            rangeTo: document.getElementById('rangeTo'),
+            applyRangeBtn: document.getElementById('applyRange'),
+            resetRangeBtn: document.getElementById('resetRange'),
+            exportChartBtn: document.getElementById('exportChart'),
+            exportPatientCsvBtn: document.getElementById('exportPatientCSV'),
+            exportAllCsvBtn: document.getElementById('exportAllCSV'),
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                tooltip: {
-                    enabled: true,
-                    mode: 'index',
-                    intersect: false,
+
+        // Application state
+        state: {
+            rawData: [],
+            chartInstance: null,
+            selectedUser: null,
+        },
+
+        // API configuration
+        api: {
+            URL: 'https://fedskillstest.coalitiontechnologies.workers.dev/',
+            AUTH_HEADER: 'Basic ' + btoa('coalition:skills-test'),
+        },
+
+        // Main initialization function
+        init() {
+            this.theme.init();
+            this.events.init();
+            this.data.fetch();
+            this.serviceWorker.register();
+        },
+
+        // --- MODULES ---
+
+        theme: {
+            init() {
+                const savedTheme = localStorage.getItem('techcare_theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+                this.apply(theme);
+            },
+            apply(theme) {
+                document.body.classList.toggle('dark', theme === 'dark');
+                const icon = app.dom.themeToggle.querySelector('i');
+                if (icon) {
+                    icon.className = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+                }
+                localStorage.setItem('techcare_theme', theme);
+            },
+            toggle() {
+                const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+                this.apply(currentTheme === 'dark' ? 'light' : 'dark');
+            }
+        },
+
+        events: {
+            init() {
+                app.dom.themeToggle.addEventListener('click', () => app.theme.toggle());
+                app.dom.userList.addEventListener('click', this.handleUserSelect);
+
+                const debouncedFilter = app.utils.debounce(app.ui.applyFilters, 300);
+                [app.dom.searchInput, app.dom.filterGender, app.dom.minAge, app.dom.maxAge, app.dom.lastVisitAfter].forEach(el => {
+                    if (el) el.addEventListener('input', debouncedFilter);
+                });
+
+                app.dom.clearFiltersBtn.addEventListener('click', app.ui.clearFilters);
+                app.dom.applyRangeBtn.addEventListener('click', () => app.chart.applyDateRange());
+                app.dom.resetRangeBtn.addEventListener('click', () => app.chart.resetDateRange());
+                app.dom.exportChartBtn.addEventListener('click', app.utils.exportChartPNG);
+
+                app.dom.exportPatientCsvBtn.addEventListener('click', () => app.utils.exportPatientCSV());
+                app.dom.exportAllCsvBtn.addEventListener('click', () => app.utils.exportAllCSV());
+            },
+            handleUserSelect(e) {
+                const li = e.target.closest('li[data-name]');
+                if (li) {
+                    app.ui.selectUser(decodeURIComponent(li.dataset.name));
+                }
+            }
+        },
+
+        data: {
+            async fetch() {
+                try {
+                    const res = await fetch(app.api.URL, { headers: { 'Authorization': app.api.AUTH_HEADER } });
+                    if (!res.ok) throw new Error(`API Error: ${res.status}`);
+                    
+                    app.state.rawData = await res.json();
+                    app.ui.renderUserList(app.state.rawData);
+
+                    // [CHANGED] Set default patient to "Emily Williams"
+                    const defaultUser = app.state.rawData.find(u => u.name === 'Emily Williams') || app.state.rawData[0];
+                    if (defaultUser) {
+                        app.ui.selectUser(defaultUser.name);
+                    }
+                } catch (err) {
+                    console.error('Failed to fetch data:', err);
+                    app.dom.userList.innerHTML = `<li class="error">Unable to load patient data.</li>`;
+                }
+            }
+        },
+
+        ui: {
+            renderUserList(users) {
+                const html = users.map(user => `
+                    <li data-name="${encodeURIComponent(user.name)}" role="button" tabindex="0">
+                        <img loading="lazy" src="${app.utils.safeText(user.profile_picture)}" alt="${app.utils.safeText(user.name)}'s profile" />
+                        <div class="user-info">
+                            <div class="name">${app.utils.safeText(user.name)}</div>
+                            <div class="sub">${app.utils.safeText(user.gender)}, ${app.utils.safeText(user.age)}</div>
+                        </div>
+                    </li>`).join('');
+                app.dom.userList.innerHTML = html || '<li>No patients found.</li>';
+            },
+
+            selectUser(name) {
+                const user = app.state.rawData.find(u => u.name === name);
+                if (!user) return;
+                app.state.selectedUser = user;
+                
+                app.dom.userList.querySelectorAll('li').forEach(li => {
+                    li.classList.toggle('active', decodeURIComponent(li.dataset.name) === name);
+                });
+                
+                this.renderProfile(user);
+                this.renderDiagnosticList(user);
+                this.renderVitals(user);
+                app.chart.init(user);
+            },
+
+            renderProfile(user) {
+                const labResultsHtml = (user.lab_results || []).map(r => `<li>${app.utils.safeText(r)} <i class="ri-download-2-line"></i></li>`).join('');
+                app.dom.profileContainer.innerHTML = `
+                    <img loading="lazy" src="${app.utils.safeText(user.profile_picture)}" alt="${app.utils.safeText(user.name)}" />
+                    <h2>${app.utils.safeText(user.name)}</h2>
+                    <ul>
+                        <li><strong>Date of Birth</strong> <span>${app.utils.safeText(user.date_of_birth)}</span></li>
+                        <li><strong>Gender</strong> <span>${app.utils.safeText(user.gender)}</span></li>
+                        <li><strong>Contact Info</strong> <span>${app.utils.safeText(user.phone_number)}</span></li>
+                        <li><strong>Emergency Contact</strong> <span>${app.utils.safeText(user.emergency_contact)}</span></li>
+                        <li><strong>Insurance Provider</strong> <span>${app.utils.safeText(user.insurance_type)}</span></li>
+                    </ul>
+                    <h3>Lab Results</h3>
+                    <ul class="lab-results">${labResultsHtml}</ul>`;
+            },
+            
+            renderDiagnosticList(user) {
+                const rows = (user.diagnostic_list || []).map(d => `
+                    <tr>
+                        <td>${app.utils.safeText(d.name)}</td>
+                        <td>${app.utils.safeText(d.description)}</td>
+                        <td>${app.utils.safeText(d.status)}</td>
+                    </tr>`).join('');
+                app.dom.diagnosticList.innerHTML = rows || '<tr><td colspan="3">No diagnostic records found.</td></tr>';
+            },
+
+            renderVitals(user) {
+                const latestVitals = user.diagnosis_history?.[0]; // Assuming most recent is first
+                if (!latestVitals) {
+                    app.dom.vitalsContainer.innerHTML = '<p>No vitals available.</p>';
+                    return;
+                }
+                const vitalsData = [
+                    { type: 'heart-rate', icon: 'ri-heart-pulse-line', label: 'Heart Rate', data: latestVitals.heart_rate, unit: 'bpm' },
+                    { type: 'respiratory', icon: 'ri-lungs-line', label: 'Respiratory Rate', data: latestVitals.respiratory_rate, unit: 'bpm' },
+                    { type: 'temperature', icon: 'ri-temp-hot-line', label: 'Temperature', data: latestVitals.temperature, unit: '°F' }
+                ];
+                app.dom.vitalsContainer.innerHTML = vitalsData.map(vital => `
+                    <div class="vital-card vital-card--${vital.type}">
+                        <div class="vital-label"><i class="${vital.icon}"></i> ${vital.label}</div>
+                        <div class="vital-value">${app.utils.safeText(vital.data?.value)} ${vital.unit}</div>
+                        <div class="vital-status">${app.utils.safeText(vital.data?.levels)}</div>
+                    </div>`).join('');
+            },
+
+            applyFilters() {
+                const q = app.dom.searchInput.value.trim().toLowerCase();
+                const gender = app.dom.filterGender.value;
+                const minAge = parseInt(app.dom.minAge.value) || null;
+                const maxAge = parseInt(app.dom.maxAge.value) || null;
+                const lastVisitAfter = app.dom.lastVisitAfter.value ? new Date(app.dom.lastVisitAfter.value) : null;
+                const filtered = app.state.rawData.filter(u => {
+                    if (q && !(u.name || '').toLowerCase().includes(q)) return false;
+                    if (gender && (u.gender || '') !== gender) return false;
+                    if (minAge !== null && u.age < minAge) return false;
+                    if (maxAge !== null && u.age > maxAge) return false;
+                    if (lastVisitAfter) {
+                        if (!Array.isArray(u.diagnosis_history) || !u.diagnosis_history.length) return false;
+                        const dates = u.diagnosis_history.map(app.utils.parseEntryDate).filter(Boolean);
+                        if (!dates.length) return false;
+                        const latest = new Date(Math.max(...dates.map(d => d.getTime())));
+                        if (latest < lastVisitAfter) return false;
+                    }
+                    return true;
+                });
+                app.ui.renderUserList(filtered);
+            },
+            
+            clearFilters() {
+                app.dom.searchInput.value = '';
+                app.dom.filterGender.value = '';
+                app.dom.minAge.value = '';
+                app.dom.maxAge.value = '';
+                app.dom.lastVisitAfter.value = '';
+                app.ui.renderUserList(app.state.rawData);
+                if (app.state.rawData[0]) app.ui.selectUser(app.state.rawData[0].name);
+            }
+        },
+        
+        chart: {
+            init(user, fromDate = null, toDate = null) {
+                const history = (user.diagnosis_history || []).slice().reverse();
+                let dataPoints = history.map(entry => ({
+                    date: app.utils.parseEntryDate(entry),
+                    systolic: entry.blood_pressure?.systolic?.value,
+                    diastolic: entry.blood_pressure?.diastolic?.value,
+                })).filter(p => p.date);
+        
+                if (fromDate) dataPoints = dataPoints.filter(p => p.date >= fromDate);
+                if (toDate) dataPoints = dataPoints.filter(p => p.date <= toDate);
+        
+                const labels = dataPoints.map(p => p.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }));
+                const datasets = [
+                    { label: 'Systolic', data: dataPoints.map(p => p.systolic), borderColor: '#E11D48', tension: 0.3, pointBackgroundColor: '#E11D48', pointBorderColor: '#FFF' },
+                    { label: 'Diastolic', data: dataPoints.map(p => p.diastolic), borderColor: '#3B82F6', tension: 0.3, pointBackgroundColor: '#3B82F6', pointBorderColor: '#FFF' }
+                ];
+        
+                if (app.state.chartInstance) {
+                    app.state.chartInstance.data.labels = labels;
+                    app.state.chartInstance.data.datasets = datasets;
+                    app.state.chartInstance.update();
+                } else {
+                    app.state.chartInstance = new Chart(app.dom.chartCanvas.getContext('2d'), {
+                        type: 'line', data: { labels, datasets },
+                        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: false, title: { display: true, text: 'mmHg' } } }, plugins: { legend: { position: 'top', align: 'end' } } }
+                    });
                 }
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Blood Pressure (mmHg)'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Date'
-                    }
+            
+            applyDateRange() {
+                const from = app.dom.rangeFrom.value;
+                const to = app.dom.rangeTo.value;
+                const fromDate = from ? new Date(from + 'T00:00:00') : null;
+                const toDate = to ? new Date(to + 'T23:59:59') : null;
+                this.init(app.state.selectedUser, fromDate, toDate);
+            },
+            
+            resetDateRange() {
+                app.dom.rangeFrom.value = '';
+                app.dom.rangeTo.value = '';
+                this.init(app.state.selectedUser);
+            }
+        },
+
+        utils: {
+            safeText: (s) => s ?? '',
+            debounce(func, delay) {
+                let timeout;
+                return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), delay); };
+            },
+            parseEntryDate(entry) {
+                const monthMap = { "January":0, "February":1, "March":2, "April":3, "May":4, "June":5, "July":6, "August":7, "September":8, "October":9, "November":10, "December":11 };
+                return new Date(entry.year, monthMap[entry.month], 1);
+            },
+            exportChartPNG() {
+                if (!app.state.chartInstance) return alert('Chart not available.');
+                const a = document.createElement('a');
+                a.href = app.state.chartInstance.toBase64Image();
+                a.download = `${app.state.selectedUser.name.replace(/\s+/g, '_')}_chart.png`;
+                a.click();
+            },
+            arrayToCSV(rows) {
+                return rows.map(row => 
+                    row.map(cell => `"${String(cell || '').replace(/"/g, '""')}"`).join(',')
+                ).join('\r\n');
+            },
+            exportPatientCSV() {
+                const user = app.state.selectedUser;
+                if (!user) return alert('No patient selected.');
+                const rows = [
+                    ['Field', 'Value'],
+                    ['Name', user.name],
+                    ['Gender', user.gender],
+                    ['Age', user.age],
+                    [],
+                    ['Problem', 'Description', 'Status'],
+                    ...(user.diagnostic_list || []).map(d => [d.name, d.description, d.status])
+                ];
+                const csv = this.arrayToCSV(rows);
+                this.downloadBlob(csv, `${user.name.replace(/\s+/g, '_')}_data.csv`, 'text/csv;charset=utf-8;');
+            },
+            exportAllCSV() {
+                if (!app.state.rawData.length) return alert('No data to export.');
+                const rows = [['Name', 'Gender', 'Age', 'Phone']];
+                app.state.rawData.forEach(u => rows.push([u.name, u.gender, u.age, u.phone_number]));
+                const csv = this.arrayToCSV(rows);
+                this.downloadBlob(csv, `techcare_all_patients.csv`, 'text/csv;charset=utf-8;');
+            },
+            downloadBlob(content, fileName, contentType) {
+                const blob = new Blob([content], { type: contentType });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        },
+
+        serviceWorker: {
+            register() {
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/sw.js')
+                        .catch(err => console.warn('Service Worker registration failed:', err));
                 }
             }
         }
-    });
+    };
 
-} else {
-    console.log('User Jessica Taylor not found');
-}
-
-} else if (this.readyState == 4) {
-console.error('Error fetching data:', this.status, this.statusText);
-}
-};
-
-
-
-document.getElementById("menu-toggle").addEventListener("click", function() {
-     document.querySelector(".navigation").classList.toggle("active");
- });
-
-
+    // Boot the application
+    app.init();
+});

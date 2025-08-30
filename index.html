@@ -2,109 +2,143 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Management Dashboard</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tech.Care — Patient Dashboard</title>
+
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230D6EFD'%3E%3Cpath d='M17.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM19 13h-1.5a2 2 0 0 0-2 2v2.5a.5.5 0 0 1-1 0V17a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H17a1 1 0 1 1 0-2h2a.5.5 0 0 0 0-1Z M6.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM5 13h1.5a2 2 0 0 1 2 2v2.5a.5.5 0 0 0 1 0V17a4 4 0 0 0-4-4H5a2.5 2.5 0 0 0 0 5h2a1 1 0 1 0 0-2H5a.5.5 0 0 1 0-1Z M12 15a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H12a1 1 0 0 1-1-1v-2a2 2 0 0 0-2-2H7a4 4 0 0 1-4-4H2.5a2.5 2.5 0 0 1 0-5H7a1 1 0 1 1 0 2H3a.5.5 0 0 0 0 1h4a2 2 0 0 0 2 2v2a1 1 0 0 1 1 1Z'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="js/scripts.js" defer></script>
 </head>
 
 <body>
-    <!-- main body -start  -->
-    <div class="container">
-
-        <!-- nav headder -start  -->
-        <header class="header">
-            <div class="logo">
-                <img src="img/TestLogo.svg" alt="Tech.Care">
+    <div class="app-shell">
+        <header class="topbar" role="banner">
+            <div class="topbar__left">
+                <button id="menu-toggle" class="menu-btn" aria-label="Toggle navigation">
+                    <i class="ri-menu-line"></i>
+                </button>
+                <div class="brand">
+                    <img src="img/TestLogo.svg" alt="Tech.Care logo" class="brand__logo" />
+                </div>
+                <nav class="navigation" id="mainNav" role="navigation" aria-label="Primary">
+                    <a href="#" class="nav__link active"><i class="ri-home-5-fill"></i>Overview</a>
+                    <a href="#" class="nav__link"><i class="ri-group-fill"></i>Patients</a>
+                    <a href="#" class="nav__link"><i class="ri-calendar-2-fill"></i>Schedule</a>
+                    <a href="#" class="nav__link"><i class="ri-chat-4-fill"></i>Message</a>
+                    <a href="#" class="nav__link"><i class="ri-bank-card-2-fill"></i>Transactions</a>
+                </nav>
             </div>
-            <nav class="navigation">
-                <a href="#"><i class="ri-home-5-fill"></i> Overview</a>
-                <a href="#"><i class="ri-group-fill"></i> Patients</a>
-                <a href="#"><i class="ri-calendar-2-fill"></i> Schedule</a>
-                <a href="#"><i class="ri-chat-4-fill"></i> Message</a>
-                <a href="#"><i class="ri-bank-card-2-fill"></i> Transactions</a>
-            </nav>
-            <div class="profile">
-                <img src="img/doctorimg.png" alt="Dr. Jose Simmons">
-                <span><strong>Jose Simmons</strong> <br><span style="font-size: 12px;"> General
-                        Practitioner</span></span>
-
-            </div>
-
-            <div class="menu-toggle" id="menu-toggle">
-                <strong><i class="ri-menu-unfold-line"></i></strong>
+            <div class="topbar__right">
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
+                    <i class="ri-moon-line"></i>
+                </button>
+                <div class="profile">
+                    <img src="img/doctorimg.png" alt="Dr Jose Simmons" class="profile__avatar" />
+                    <div class="profile__meta">
+                        <span class="profile__name">Dr. Jose Simmons</span><br>
+                        <span class="profile__role">General Practitioner</span>
+                    </div>
+                </div>
             </div>
         </header>
-        <!-- nav header -end  -->
 
-
-        <main class="main">
-
-            <!-- left sidebar -start  -->
-            <aside class="sidebar">
-                <div class="patients-list">
-                    <input type="text" placeholder="Search">
-
-                    <!-- all users -start  -->
-                    <ul id="allusers"></ul>
-                    <!-- all users -end  -->
-
+        <main class="layout" role="main">
+            <aside class="col col--left" aria-label="Patients">
+                <div class="panel panel--compact">
+                    <div class="search">
+                        <input id="searchInput" type="search" placeholder="Search patients by name..."
+                            aria-label="Search patients" />
+                    </div>
+                    <div class="filters" aria-hidden="false">
+                        <div class="filter-row">
+                            <label for="filterGender">Gender</label>
+                            <select id="filterGender" aria-label="Filter by gender">
+                                <option value="">All</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="filter-row">
+                            <label>Age</label>
+                            <div class="age-inputs">
+                                <input id="minAge" type="number" placeholder="Min" min="0" aria-label="Minimum age">
+                                <input id="maxAge" type="number" placeholder="Max" min="0" aria-label="Maximum age">
+                            </div>
+                        </div>
+                        <div class="filter-row">
+                            <label for="lastVisitAfter">Last visit after</label>
+                            <input id="lastVisitAfter" type="date" aria-label="Filter by last visit date">
+                        </div>
+                        <div class="filter-actions">
+                            <button id="clearFilters" class="btn btn--ghost">Clear</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel--list">
+                    <ul id="allusers" class="users-ul" role="list" aria-live="polite"></ul>
                 </div>
             </aside>
-            <!-- left sidebar -end  -->
 
-            <section class="content">
-
-                <!-- diagnosis-history chart -start   -->
-                <div class="diagnosis-history">
-                    <h2>Diagnosis History</h2>
-                    <div class="chart-container">
-                        <canvas id="myChart"></canvas>
+            <section class="col col--main">
+                <div class="panel">
+                    <div class="panel__header">
+                        <h2 class="panel__title">Diagnosis History</h2>
+                        <div class="panel__controls">
+                            <div class="date-range">
+                                <label>From <input id="rangeFrom" type="date" aria-label="Range start"></label>
+                                <label>To <input id="rangeTo" type="date" aria-label="Range end"></label>
+                                <button id="applyRange" class="btn btn--small">Apply</button>
+                                <button id="resetRange" class="btn btn--ghost btn--small">Reset</button>
+                            </div>
+                            <div class="exports">
+                                <button id="exportChart" class="btn btn--small">Export Chart (PNG)</button>
+                                <button id="exportPatientCSV" class="btn btn--small">Export Patient CSV</button>
+                                <button id="exportAllCSV" class="btn btn--small">Export All CSV</button>
+                            </div>
+                        </div>
                     </div>
-                    <!-- diagnosis-history chart -end  -->
-
-                    <!-- diagnosis-history-meter -start  -->
-                    <div class="vitals" id="diagnosis_history_meter"></div>
-                    <!-- diagnosis-history-meter -end  -->
-
+                    <div class="chart-container">
+                        <canvas id="myChart" aria-label="Blood pressure history chart" role="img"></canvas>
+                    </div>
+                    <div id="diagnosis_history_meter" class="vitals"></div>
                 </div>
-
-                <!-- diagnostic-list -start  -->
-                <div class="diagnostic-list">
-                    <h2>Diagnostic List</h2>
-                    <table>
-                        <thead style="background-color:whitesmoke ;">
-                            <tr>
-                                <th>Problem/Diagnosis</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <!-- diagnostic-list-data -start  -->
-                        <tbody id="diagnostic_list"></tbody>
-                        <!-- diagnostic-list-data -end  -->
-                    </table>
+                <div class="panel">
+                    <h3 class="panel__title">Diagnostic List</h3>
+                    <div class="table-wrap">
+                        <table class="diagnostic-table" role="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Problem/Diagnosis</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="diagnostic_list"></tbody>
+                        </table>
+                    </div>
                 </div>
-                <!-- diagnostic-list -end  -->
-
             </section>
 
-            <!-- right sidebar -start  -->
-            <aside class="patient-details">
-                <!-- profile info -start  -->
-                <div class="profile-card" id="userdata"></div>
-                <!-- profile info -end  -->
+            <aside class="col col--right" aria-label="Patient details">
+                <div id="userdata" class="panel panel--profile"></div>
             </aside>
-            <!-- right sidebar -end  -->
-
         </main>
     </div>
-    <!-- main body -end  -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/scripts.js"></script>
 
-</body>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch((err) => {
+                console.warn('Service Worker registration failed:', err);
+            });
+        }
+    </script>
 </body>
 
 </html>
