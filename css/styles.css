@@ -1,10 +1,9 @@
 /* ---- Theme Variables & Fonts ---- */
 :root {
-    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol';
+    --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-    /* Light Theme Palette - Enhanced for healthcare */
+    /* Light Theme Palette - Professional Healthcare */
     --bg: #f8fafc;
     --bg-subtle: #f1f5f9;
     --panel: #ffffff;
@@ -16,28 +15,11 @@
     --accent-success: #10b981;
     --accent-warning: #f59e0b;
     --accent-danger: #ef4444;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 14px;
-}
-
-body.dark {
-    /* Refined Dark Theme Palette for healthcare */
-    --bg: #0f172a;
-    --bg-subtle: #1e293b;
-    --panel: #1e293b;
-    --border: #334155;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --accent-primary: #3b82f6;
-    --accent-primary-rgb: 59, 130, 246;
-    --accent-success: #10b981;
-    --accent-warning: #f59e0b;
-    --accent-danger: #ef4444;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 }
 
 /* ---- Global Styles & Resets ---- */
@@ -50,12 +32,11 @@ body.dark {
 html,
 body {
     height: 100%;
-    font-family: var(--font-family);
+    font-family: var(--font-secondary);
     background-color: var(--bg);
     color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 img {
@@ -98,7 +79,6 @@ a {
     position: sticky;
     top: 0;
     z-index: 100;
-    transition: background-color 0.3s, border-color 0.3s;
     box-shadow: var(--shadow);
 }
 
@@ -150,6 +130,7 @@ a {
     font-weight: 500;
     color: var(--text-secondary);
     transition: all 0.2s ease;
+    font-family: var(--font-secondary);
 }
 
 .nav__link i {
@@ -178,11 +159,13 @@ a {
 .profile__name {
     font-weight: 600;
     font-size: 0.95rem;
+    font-family: var(--font-secondary);
 }
 
 .profile__role {
     font-size: 0.8rem;
     color: var(--text-secondary);
+    font-family: var(--font-secondary);
 }
 
 /* ---- Main Layout & Panels ---- */
@@ -204,7 +187,10 @@ a {
     box-shadow: var(--shadow);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
+}
+
+.diagnosis-panel {
+    padding: 2rem;
 }
 
 .panel--list {
@@ -222,9 +208,11 @@ a {
 }
 
 .panel__title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--text-primary);
+    font-family: var(--font-primary);
+    letter-spacing: -0.01em;
 }
 
 .panel__controls {
@@ -234,20 +222,11 @@ a {
     align-items: center;
 }
 
-.date-range,
 .exports {
     display: flex;
     gap: 0.5rem;
     align-items: center;
     flex-wrap: wrap;
-}
-
-.date-range label {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
 }
 
 /* ---- Buttons ---- */
@@ -256,7 +235,7 @@ a {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    font-family: var(--font-family);
+    font-family: var(--font-secondary);
     font-weight: 600;
     font-size: 0.875rem;
     padding: 0.6rem 1.2rem;
@@ -266,14 +245,18 @@ a {
     transition: all 0.2s ease;
 }
 
-#applyRange {
-    background-color: var(--accent-primary);
-    color: #fff;
-    border-color: var(--accent-primary);
+.btn--small {
+    background-color: var(--panel);
+    color: var(--text-secondary);
+    border-color: var(--border);
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
 }
 
-#applyRange:hover {
-    background-color: rgba(var(--accent-primary-rgb), 0.9);
+.btn--small:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+    background-color: var(--bg);
 }
 
 .btn--ghost {
@@ -286,23 +269,6 @@ a {
     border-color: var(--text-secondary);
     color: var(--text-primary);
     background-color: var(--bg);
-}
-
-.exports .btn {
-    background-color: var(--panel);
-    color: var(--text-secondary);
-    border-color: var(--border);
-}
-
-.exports .btn:hover {
-    border-color: var(--text-secondary);
-    color: var(--text-primary);
-    background-color: var(--bg);
-}
-
-.btn--small {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
 }
 
 /* ---- Forms & Filters ---- */
@@ -320,7 +286,7 @@ select {
     width: 100%;
     padding: 0.85rem 1rem;
     font-size: 0.95rem;
-    font-family: var(--font-family);
+    font-family: var(--font-secondary);
     border: 1.5px solid var(--border);
     border-radius: var(--radius-md);
     background-color: var(--bg);
@@ -352,11 +318,6 @@ select:focus {
     padding: 1.25rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     border: 1px solid var(--border);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.filter-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .filter-card label {
@@ -365,6 +326,7 @@ select:focus {
     margin-bottom: 0.75rem;
     display: block;
     color: var(--text-primary);
+    font-family: var(--font-secondary);
 }
 
 .form-control {
@@ -468,11 +430,13 @@ select {
 .users-ul .name {
     font-weight: 600;
     font-size: 0.95rem;
+    font-family: var(--font-secondary);
 }
 
 .users-ul .sub {
     font-size: 0.875rem;
     color: var(--text-secondary);
+    font-family: var(--font-secondary);
 }
 
 /* ---- Chart & Vitals ---- */
@@ -501,12 +465,6 @@ select {
     flex-direction: column;
     gap: 0.5rem;
     text-align: left;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.vital-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
 }
 
 .vital-label {
@@ -516,6 +474,7 @@ select {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-family: var(--font-secondary);
 }
 
 .vital-label i {
@@ -526,12 +485,14 @@ select {
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.2;
+    font-family: var(--font-primary);
 }
 
 .vital-status {
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--text-secondary);
+    font-family: var(--font-secondary);
 }
 
 .vital-card--heart-rate { --vital-color: var(--accent-danger); }
@@ -554,6 +515,7 @@ select {
     border-collapse: separate;
     border-spacing: 0;
     font-size: 0.92rem;
+    font-family: var(--font-secondary);
 }
 
 .diagnostic-table th,
@@ -561,7 +523,6 @@ select {
     padding: 1rem 1.25rem;
     text-align: left;
     border-bottom: 1px solid var(--border);
-    transition: background-color 0.2s ease;
 }
 
 .diagnostic-table tr:last-child td {
@@ -650,12 +611,14 @@ select {
     margin-bottom: 0.35rem;
     color: var(--text-primary);
     font-weight: 600;
+    font-family: var(--font-primary);
 }
 
 .panel--profile .muted {
     color: var(--text-secondary);
     margin-bottom: 1.75rem;
     font-size: 0.95rem;
+    font-family: var(--font-secondary);
 }
 
 .panel--profile ul {
@@ -674,12 +637,6 @@ select {
     gap: 0.85rem;
     padding: 0.85rem 0.5rem;
     border-bottom: 1px solid var(--border);
-    transition: background-color 0.2s ease;
-}
-
-.panel--profile ul li:hover {
-    background-color: rgba(var(--accent-primary-rgb), 0.05);
-    border-radius: var(--radius-sm);
 }
 
 .panel--profile ul li:last-child {
@@ -766,13 +723,17 @@ select {
         justify-content: space-between;
     }
     
-    .date-range, .exports {
+    .exports {
         width: 100%;
         margin-bottom: 0.5rem;
     }
     
     .chart-container {
         height: 300px;
+    }
+    
+    .diagnosis-panel {
+        padding: 1.5rem;
     }
 }
 
@@ -802,4 +763,33 @@ select {
     .exports {
         flex-direction: column;
     }
+}
+
+/* ---- Chart Animations ---- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes lineGrow {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.chart-container {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.chartjs-render-monitor {
+    animation: lineGrow 1s ease-out;
 }

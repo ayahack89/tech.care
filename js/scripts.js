@@ -1,14 +1,13 @@
 /*
  * Tech.Care Patient Dashboard Script
- * Final Version: 2.4.0
- * Description: Enhanced UI with modern chart design and improved responsiveness
+ * Final Version: 3.0.0
+ * Description: Revamped UI with enhanced Diagnosis History section
  */
 document.addEventListener('DOMContentLoaded', () => {
 
     const app = {
         // Cache frequently accessed DOM elements for performance
         dom: {
-            themeToggle: document.getElementById('themeToggle'),
             userList: document.getElementById('allusers'),
             profileContainer: document.getElementById('userdata'),
             diagnosticList: document.getElementById('diagnostic_list'),
@@ -20,10 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             minAge: document.getElementById('minAge'),
             maxAge: document.getElementById('maxAge'),
             clearFiltersBtn: document.getElementById('clearFilters'),
-            rangeFrom: document.getElementById('rangeFrom'),
-            rangeTo: document.getElementById('rangeTo'),
-            applyRangeBtn: document.getElementById('applyRange'),
-            resetRangeBtn: document.getElementById('resetRange'),
             exportChartBtn: document.getElementById('exportChart'),
             exportPatientCsvBtn: document.getElementById('exportPatientCSV'),
             exportAllCsvBtn: document.getElementById('exportAllCSV'),
@@ -46,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Main initialization function
         init() {
-            this.theme.init();
             this.events.init();
             this.data.fetch();
             this.serviceWorker.register();
@@ -54,35 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- MODULES ---
 
-        theme: {
-            init() {
-                const savedTheme = localStorage.getItem('techcare_theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-                this.apply(theme);
-            },
-            apply(theme) {
-                document.body.classList.toggle('dark', theme === 'dark');
-                const icon = app.dom.themeToggle.querySelector('i');
-                if (icon) {
-                    icon.className = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-                }
-                localStorage.setItem('techcare_theme', theme);
-                
-                // Update chart colors if chart exists
-                if (app.state.chartInstance && app.state.selectedUser) {
-                    app.chart.init(app.state.selectedUser);
-                }
-            },
-            toggle() {
-                const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-                this.apply(currentTheme === 'dark' ? 'light' : 'dark');
-            }
-        },
-
         events: {
             init() {
-                app.dom.themeToggle.addEventListener('click', () => app.theme.toggle());
                 app.dom.userList.addEventListener('click', this.handleUserSelect);
                 app.dom.menuToggle.addEventListener('click', () => {
                     app.dom.navigation.classList.toggle('active');
@@ -94,8 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 app.dom.clearFiltersBtn.addEventListener('click', app.ui.clearFilters);
-                app.dom.applyRangeBtn.addEventListener('click', () => app.chart.applyDateRange());
-                app.dom.resetRangeBtn.addEventListener('click', () => app.chart.resetDateRange());
                 app.dom.exportChartBtn.addEventListener('click', app.utils.exportChartPNG);
                 app.dom.exportPatientCsvBtn.addEventListener('click', () => app.utils.exportPatientCSV());
                 app.dom.exportAllCsvBtn.addEventListener('click', () => app.utils.exportAllCSV());
@@ -249,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         
         chart: {
-            init(user, fromDate = null, toDate = null) {
+            init(user) {
                 const history = (user.diagnosis_history || []).slice().reverse();
                 let dataPoints = history.map(entry => ({
                     date: app.utils.parseEntryDate(entry),
@@ -257,15 +222,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     diastolic: entry.blood_pressure?.diastolic?.value,
                 })).filter(p => p.date);
         
-                if (fromDate) dataPoints = dataPoints.filter(p => p.date >= fromDate);
-                if (toDate) dataPoints = dataPoints.filter(p => p.date <= toDate);
-        
                 const labels = dataPoints.map(p => p.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }));
                 
-                // Determine chart colors based on theme
-                const isDark = document.body.classList.contains('dark');
-                const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-                const textColor = isDark ? '#f1f5f9' : '#1e293b';
+                // Chart colors
+                const gridColor = 'rgba(0, 0, 0, 0.05)';
+                const textColor = '#1e293b';
                 
                 const datasets = [
                     { 
@@ -297,18 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (app.state.chartInstance) {
                     app.state.chartInstance.data.labels = labels;
                     app.state.chartInstance.data.datasets = datasets;
-                    app.state.chartInstance.options.scales.x.grid.color = gridColor;
-                    app.state.chartInstance.options.scales.y.grid.color = gridColor;
-                    app.state.chartInstance.options.scales.x.ticks.color = textColor;
-                    app.state.chartInstance.options.scales.y.ticks.color = textColor;
                     app.state.chartInstance.update();
                 } else {
                     const ctx = app.dom.chartCanvas.getContext('2d');
                     
                     // Create gradient for chart background
                     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                    gradient.addColorStop(0, isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(248, 250, 252, 0.5)');
-                    gradient.addColorStop(1, isDark ? 'rgba(30, 41, 59, 0.1)' : 'rgba(248, 250, 252, 0.1)');
+                    gradient.addColorStop(0, 'rgba(248, 250, 252, 0.5)');
+                    gradient.addColorStop(1, 'rgba(248, 250, 252, 0.1)');
                     
                     app.state.chartInstance = new Chart(ctx, {
                         type: 'line', 
@@ -324,16 +281,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                         usePointStyle: true,
                                         padding: 20,
                                         font: {
+                                            family: "'Outfit', sans-serif",
                                             size: 13,
                                             weight: '600'
                                         }
                                     }
                                 },
                                 tooltip: {
-                                    backgroundColor: isDark ? 'rgba(15, 23, 42, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
                                     titleColor: textColor,
                                     bodyColor: textColor,
-                                    borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                                    borderColor: 'rgba(0, 0, 0, 0.1)',
                                     borderWidth: 1,
                                     cornerRadius: 8,
                                     displayColors: false,
@@ -357,6 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                         color: textColor,
                                         maxRotation: 0,
                                         font: {
+                                            family: "'Inter', sans-serif",
                                             size: 11
                                         }
                                     }
@@ -370,6 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     ticks: {
                                         color: textColor,
                                         font: {
+                                            family: "'Inter', sans-serif",
                                             size: 11
                                         }
                                     },
@@ -378,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                         text: 'mmHg',
                                         color: textColor,
                                         font: {
+                                            family: "'Outfit', sans-serif",
                                             size: 12,
                                             weight: '600'
                                         }
@@ -400,20 +361,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         } 
                     });
                 }
-            },
-            
-            applyDateRange() {
-                const from = app.dom.rangeFrom.value;
-                const to = app.dom.rangeTo.value;
-                const fromDate = from ? new Date(from + 'T00:00:00') : null;
-                const toDate = to ? new Date(to + 'T23:59:59') : null;
-                this.init(app.state.selectedUser, fromDate, toDate);
-            },
-            
-            resetDateRange() {
-                app.dom.rangeFrom.value = '';
-                app.dom.rangeTo.value = '';
-                this.init(app.state.selectedUser);
             }
         },
 
