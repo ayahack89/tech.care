@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Tech.Care — Patient Dashboard</title>
+    <title>Tech.Care Patient Dashboard</title>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230D6EFD'%3E%3Cpath d='M17.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM19 13h-1.5a2 2 0 0 0-2 2v2.5a.5.5 0 0 1-1 0V17a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H17a1 1 0 1 1 0-2h2a.5.5 0 0 0 0-1Z M6.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM5 13h1.5a2 2 0 0 1 2 2v2.5a.5.5 0 0 0 1 0V17a4 4 0 0 0-4-4H5a2.5 2.5 0 0 0 0 5h2a1 1 0 1 0 0-2H5a.5.5 0 0 1 0-1Z M12 15a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H12a1 1 0 0 1-1-1v-2a2 2 0 0 0-2-2H7a4 4 0 0 1-4-4H2.5a2.5 2.5 0 0 1 0-5H7a1 1 0 1 1 0 2H3a.5.5 0 0 0 0 1h4a2 2 0 0 0 2 2v2a1 1 0 0 1 1 1Z'/%3E%3C/svg%3E">
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230D6EFD'%3E%3Cpath d='M17.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM19 13h-1.5a2 2 0 0 0-2 2v2.5a.5.5 0 0 1-1 0V17a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H17a1 1 0 1 1 0-2h2a.5.5 0 0 0 0-1Z M6.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM5 13h1.5a2 2 0 0 1 2 2v2.5a.5.5 0 0 0 1 0V17a4 4 0 0 0-4-4H5a2.5 2.5 0 0 0 0 5h2a1 1 0 1 0 0-2H5a.5.5 0 0 1 0-1Z M12 15a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H12a1 1 0 0 1-1-1v-2a2 2 0 0 0-2-2H7a4 4 0 0 1-4-4H2.5a2.5 2.5 0 0 1 0-5H7a1 1 0 1 1 0 2H3a.5.5 0 0 0 0 1h4a2 2 0 0 0 2 2v2a1 1 0 0 1 1 1Z'/%3E%3C/svg%3E">
 
     <link rel="stylesheet" href="css/styles.css" />
 
@@ -27,17 +27,17 @@
                     <img src="img/TestLogo.svg" alt="Tech.Care logo" class="brand__logo" />
                 </div>
                 <nav class="navigation" id="mainNav" role="navigation" aria-label="Primary">
-                    <a href="#" class="nav__link active"><i class="ri-home-5-fill"></i>Overview</a>
-                    <a href="#" class="nav__link"><i class="ri-group-fill"></i>Patients</a>
-                    <a href="#" class="nav__link"><i class="ri-calendar-2-fill"></i>Schedule</a>
-                    <a href="#" class="nav__link"><i class="ri-chat-4-fill"></i>Message</a>
-                    <a href="#" class="nav__link"><i class="ri-bank-card-2-fill"></i>Transactions</a>
+                    <a href="#" class="nav__link active"><i class="ri-dashboard-2-line"></i>Overview</a>
+                    <a href="#" class="nav__link"><i class="ri-group-line"></i>Patients</a>
+                    <a href="#" class="nav__link"><i class="ri-calendar-2-line"></i>Schedule</a>
+                    <a href="#" class="nav__link"><i class="ri-message-2-line"></i>Message</a>
+                    <a href="#" class="nav__link"><i class="ri-bank-card-2-line"></i>Transactions</a>
                 </nav>
             </div>
             <div class="topbar__right">
-                <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
+                <!-- <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
                     <i class="ri-moon-line"></i>
-                </button>
+                </button> -->
                 <div class="profile">
                     <img src="img/doctorimg.png" alt="Dr Jose Simmons" class="profile__avatar" />
                     <div class="profile__meta">
@@ -50,37 +50,55 @@
 
         <main class="layout" role="main">
             <aside class="col col--left" aria-label="Patients">
-                <div class="panel panel--compact">
-                    <div class="search">
-                        <input id="searchInput" type="search" placeholder="Search patients by name..."
-                            aria-label="Search patients" />
+                <div class="panel" aria-labelledby="panelTitle">
+                    <div class="search-row" role="search" aria-label="Search patients">
+                        <form class="search" onsubmit="event.preventDefault();">
+                            <div class="icon" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+                                    focusable="false">
+                                    <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <label for="searchInput" class="muted" style="display:none;">Search patients</label>
+                            <input id="searchInput" type="search" placeholder="Search patients by name.."
+                                aria-label="Search patients by name" />
+                        </form>
                     </div>
-                    <div class="filters" aria-hidden="false">
-                        <div class="filter-row">
-                            <label for="filterGender">Gender</label>
-                            <select id="filterGender" aria-label="Filter by gender">
-                                <option value="">All</option>
-                                <option value="Female">Female</option>
-                                <option value="Male">Male</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div class="filter-row">
-                            <label>Age</label>
-                            <div class="age-inputs">
-                                <input id="minAge" type="number" placeholder="Min" min="0" aria-label="Minimum age">
-                                <input id="maxAge" type="number" placeholder="Max" min="0" aria-label="Maximum age">
+
+                    <form class="filters" id="filtersForm" aria-label="Patient filters" role="region"
+                        aria-labelledby="panelTitle">
+                        <div class="filter-card">
+                            <label for="filterGender">Gender <i class="ri-men-line"></i><i class="ri-women-line"></i></label>
+                            <div class="form-control">
+                                <select id="filterGender" name="gender" aria-label="Filter by gender">
+                                    <option value="">All</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Other">Other</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="filter-row">
-                            <label for="lastVisitAfter">Last visit after</label>
-                            <input id="lastVisitAfter" type="date" aria-label="Filter by last visit date">
+
+                        <div class="filter-card">
+                            <label for="ageRange">Age <i class="ri-leaf-line"></i></label>
+                            <div class="form-control age-inputs" id="ageRange" aria-label="Filter by age range">
+                                <input id="minAge" name="minAge" type="number" placeholder="Min" min="0"
+                                    aria-label="Minimum age" />
+                                <input id="maxAge" name="maxAge" type="number" placeholder="Max" min="0"
+                                    aria-label="Maximum age" />
+                            </div>
                         </div>
+
                         <div class="filter-actions">
-                            <button id="clearFilters" class="btn btn--ghost">Clear</button>
+                            <button type="button" id="clearFilters" class="btn btn--ghost"
+                                aria-label="Clear filters">Clear</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
+
                 <div class="panel panel--list">
                     <ul id="allusers" class="users-ul" role="list" aria-live="polite"></ul>
                 </div>
@@ -91,12 +109,12 @@
                     <div class="panel__header">
                         <h2 class="panel__title">Diagnosis History</h2>
                         <div class="panel__controls">
-                            <div class="date-range">
+                            <!-- <div class="date-range">
                                 <label>From <input id="rangeFrom" type="date" aria-label="Range start"></label>
                                 <label>To <input id="rangeTo" type="date" aria-label="Range end"></label>
                                 <button id="applyRange" class="btn btn--small">Apply</button>
                                 <button id="resetRange" class="btn btn--ghost btn--small">Reset</button>
-                            </div>
+                            </div> -->
                             <div class="exports">
                                 <button id="exportChart" class="btn btn--small">Export Chart (PNG)</button>
                                 <button id="exportPatientCSV" class="btn btn--small">Export Patient CSV</button>
@@ -109,6 +127,7 @@
                     </div>
                     <div id="diagnosis_history_meter" class="vitals"></div>
                 </div>
+
                 <div class="panel">
                     <h3 class="panel__title">Diagnostic List</h3>
                     <div class="table-wrap">
