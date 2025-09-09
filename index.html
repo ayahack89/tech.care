@@ -9,14 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="icon"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230D6EFD'%3E%3Cpath d='M17.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM19 13h-1.5a2 2 0 0 0-2 2v2.5a.5.5 0 0 1-1 0V17a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H17a1 1 0 1 1 0-2h2a.5.5 0 0 0 0-1Z M6.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM5 13h1.5a2 2 0 0 1 2 2v2.5a.5.5 0 0 0 1 0V17a4 4 0 0 0-4-4H5a2.5 2.5 0 0 0 0 5h2a1 1 0 1 0 0-2H5a.5.5 0 0 1 0-1Z M12 15a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H12a1 1 0 0 1-1-1v-2a2 2 0 0 0-2-2H7a4 4 0 0 1-4-4H2.5a2.5 2.5 0 0 1 0-5H7a1 1 0 1 1 0 2H3a.5.5 0 0 0 0 1h4a2 2 0 0 0 2 2v2a1 1 0 0 1 1 1Z'/%3E%3C/svg%3E">
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230070F3'%3E%3Cpath d='M17.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM19 13h-1.5a2 2 0 0 0-2 2v2.5a.5.5 0 0 1-1 0V17a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H17a1 1 0 1 1 0-2h2a.5.5 0 0 0 0-1Z M6.5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM5 13h1.5a2 2 0 0 1 2 2v2.5a.5.5 0 0 0 1 0V17a4 4 0 0 0-4-4H5a2.5 2.5 0 0 0 0 5h2a1 1 0 1 0 0-2H5a.5.5 0 0 1 0-1Z M12 15a4 4 0 0 1 4-4h.5a2.5 2.5 0 0 1 0 5H12a1 1 0 0 1-1-1v-2a2 2 0 0 0-2-2H7a4 4 0 0 1-4-4H2.5a2.5 2.5 0 0 1 0-5H7a1 1 0 1 1 0 2H3a.5.5 0 0 0 0 1h4a2 2 0 0 0 2 2v2a1 1 0 0 1 1 1Z'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <link rel="stylesheet" href="css/styles.css" />
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-    <script src="js/scripts.js" defer></script>
 </head>
 
 <body>
@@ -27,7 +25,7 @@
                     <i class="ri-menu-line"></i>
                 </button>
                 <div class="brand">
-                    <img src="img/TestLogo.svg" alt="Tech.Care logo" class="brand__logo" />
+                    <div class="brand__logo">Tech.Care</div>
                 </div>
                 <nav class="navigation" id="mainNav" role="navigation" aria-label="Primary">
                     <a href="#" class="nav__link active"><i class="ri-dashboard-2-line"></i>Overview</a>
@@ -39,7 +37,7 @@
             </div>
             <div class="topbar__right">
                 <div class="profile">
-                    <img src="img/doctorimg.png" alt="Dr Jose Simmons" class="profile__avatar" />
+                    <img src="https://i.pravatar.cc/150?img=12" alt="Dr Jose Simmons" class="profile__avatar" />
                     <div class="profile__meta">
                         <span class="profile__name">Dr. Jose Simmons</span><br>
                         <span class="profile__role">General Practitioner</span>
@@ -71,7 +69,8 @@
                     <form class="filters" id="filtersForm" aria-label="Patient filters" role="region"
                         aria-labelledby="panelTitle">
                         <div class="filter-card">
-                            <label for="filterGender">Gender <i class="ri-men-line"></i><i class="ri-women-line"></i></label>
+                            <label for="filterGender">Gender <i class="ri-men-line"></i><i
+                                    class="ri-women-line"></i></label>
                             <div class="form-control">
                                 <select id="filterGender" name="gender" aria-label="Filter by gender">
                                     <option value="">All</option>
@@ -145,13 +144,8 @@
         </main>
     </div>
 
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch((err) => {
-                console.warn('Service Worker registration failed:', err);
-            });
-        }
-    </script>
+    <script src="js/scripts.js"></script>
+    <script src="js/sw.js"></script>
 </body>
 
 </html>

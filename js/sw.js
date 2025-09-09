@@ -9,7 +9,6 @@ const STATIC_ASSETS = [
     '/img/TestLogo.svg',
     '/img/doctorimg.png',
     'https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css',
-    // Chart.js is loaded from CDN and we avoid caching it here to reduce CORS issues.
 ];
 
 self.addEventListener('install', evt => {
